@@ -35,7 +35,6 @@ module.exports = {
                             "mon_hoc.ten_mon_hoc FROM `lich_hoc`,`lop_hoc_phan`," +
                             "`phong_hoc`,`ct_lop_hp`,`mon_hoc` WHERE phong_hoc.ma_phong=lich_hoc.ma_phong " +
                             "AND lop_hoc_phan.ma_lop_hp=lich_hoc.ma_lop_hp AND mon_hoc.ma_mon_hoc=lop_hoc_phan.ma_mon_hoc" +
-                            " AND ct_lop_hp.ma_lop_hp=lop_hoc_phan.ma_lop_hp" +
                             " ORDER BY `lich_hoc`.`tiet_hoc` ASC";
                         //console.log(thu[now.getDay() - 1]);
                         connection.query(sql, (err, rows) => {
