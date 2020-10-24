@@ -1,0 +1,113 @@
+<script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("button[name='export']").click(function(){
+            var table = $(this).prev('#myTable');
+            var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+            $("#myTable").table2excel({
+                exclude: "noExl",
+                name: "abc",
+                filename: "test",
+                exclude_img: true,
+				exclude_links: true,
+			    exclude_inputs: true,
+				preserveColors: preserveColors
+            });
+        });
+    });
+</script>
+
+<div class="container-fluid" align="center">
+    <h3 class="display-4 d-none d-sm-block">
+   Dashboard
+</h3>
+
+<div class="alert alert-warning fade collapse" role="alert" id="myAlert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>Holy guacamole!</strong> It's free.. this is an example theme.
+</div>
+<div class="row mb-3">
+    <div class="col-xl-3 col-sm-6 py-2" style="text-align: -webkit-center;background: #4000FF;height: 40px;">
+       <div style="color: white;">
+            <h4><%= tk %> Tài Khoản</h4>
+            <h1 class="display-4 m-0"></h1>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 py-2" style="text-align: -webkit-center;height: 40px;background: #FE9A2E">
+        <div style="color: white;">
+            <h4><%= lop %> Lớp</h4>
+            <h1 class="display-4 m-0"></h1>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 py-2" style="text-align: -webkit-center;background: #0489B1;height: 40px;">
+        <div style="color: white;">
+            <h4><%= gv %> Giáo Viên</h4>
+            <h1 class="display-4 m-0"></h1>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 py-2" style="text-align: -webkit-center;background: #DBA901;height: 40px;">
+        <div style="color: white;">
+            <h4><%= sv %> Sinh Viên</h4>
+            <h1 class="display-4 m-0"></h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-12 text-center mr-auto ml-auto mt-5">
+            <button name="export" class="btn btn-primary">Download Export Excel</button>
+        </div>
+</div>
+    <table class="table table-bordered table-condensed mt-5" id="myTable">
+        <thead>
+            <tr align="center" >
+                <th rowspan="2" style="vertical-align: middle;">Thứ</th>
+                <th rowspan="2" style="vertical-align: middle;">Tiết</th>
+                <th colspan="4">Lớp</th>
+            </tr>
+            <tr align="center" >
+                <th colspan="2">Sáng</th>
+                <th colspan="2">Chiều</th>
+            </tr>
+            <tr align="center">
+                <td></td>
+                <td></td>
+                <td>Môn học - Giảng viên</td>
+                <td>Phòng</td>
+                <td>Môn học - Giảng viên</td>
+                <td>Phòng</td>
+            </tr>
+        </thead>
+        <tbody>
+             <%  var thu = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']; %>
+                <% calendar.forEach(function(time,index) { %>
+                    <% if (time.length > 0) { %>
+                        <tr align="center">
+                            <% var date = (thu[index] != "CN") ? "Thứ "+thu[index].substring(1) : "Chủ Nhật"%>
+                            <th rowspan="6" id="<%- thu[index] %>" style="vertical-align: middle;"><%- date %> </th>
+                            <td >1</td>
+                            <% time[0].forEach(function(lh) { 
+                                var row = lh.tiet_hoc.substring(3,4) - lh.tiet_hoc.substring(0,1) + 1 %>
+                                <td rowspan="<%= row %>"><%= lh.ten_lop_hp%></td>
+                                <td rowspan="<%= row %>" style="vertical-align: middle;"><%= lh.ten_phong %></td>
+                            <% }) %>
+                            <% time[1].forEach(function(lh) { 
+                                var row = lh.tiet_hoc.substring(3,4) - lh.tiet_hoc.substring(0,1) + 1 %>
+                                <td rowspan="<%= row %>"><%= lh.ten_lop_hp%></td>
+                                <td rowspan="<%= row %>" style="vertical-align: middle;"><%= lh.ten_phong %></td>
+                            <% }) %>
+                            <% for (var i = 2; i <=6; i++ ) { %>
+                                <tr align="center">
+                                    <td><%= i %></td>
+                                </tr>
+                            <% } %>
+                        </tr>
+                    <% } %>
+                <% }); %>
+        </tbody>
+    </table>
+</div>
+
+

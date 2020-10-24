@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <h3 class="text-center">LỊCH DẠY HÔM NAY</h3>
+    <table class="table table-striped table-bordered table-condensed mt-5" id="myTable">
+        <thead>
+            <tr align="center">
+                <th>STT</th>
+                <th>Tên Lớp Học Phần</th>
+                <th>Thời Gian</th>
+                <th>Buổi Học</th>
+                <th>Tiết Học</th>
+                <th>Phòng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% var bat_dau = ['7h30','8h30','9h30','10h30','11h30','13h','14h','15h','16h','17h']%>
+            <% var ket_thuc = ['8h20','9h20','10h20','11h20','12h20','13h50','14h50','15h50','16h50','17h50']%>
+            <% lich_day.forEach(function(calendar,index) { %>
+            <%
+            var bd = calendar.tiet_hoc.slice(0,1);
+            var kt = calendar.tiet_hoc.slice(3);
+            %>
+            <tr align="center" id="<%- calendar.ma_lich %>">
+                <td><%- index+1 %></td>
+                <td><%- calendar.ten_lop_hp %></td>
+                <td><%- calendar.tenGiCungDc %></td>
+                <td><%- calendar.buoi_hoc %></td>
+                <td><%- calendar.tiet_hoc + "<br>" + bat_dau[bd-1]+"-->"+ket_thuc[kt-1] %></td>
+                <td><%- calendar.ten_phong %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

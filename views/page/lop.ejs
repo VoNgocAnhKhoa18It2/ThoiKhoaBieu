@@ -1,0 +1,113 @@
+<script>
+</script>
+<div class="container-fluid">
+	<div class="mb-lg-2 float-md-right">
+		<a href="#" class="rounded rounded-circle btn btn-success text-light pl-lg-2 pr-lg-2 pt-1 pb-1"
+			data-toggle="modal" data-target="#add"><i class="fas fa-plus"></i>
+		</a>
+	</div>
+	<table class="table table-striped table-bordered table-condensed mt-5" id="myTable">
+		<h3 class="text-center">DANH SÁCH LỚP</h3>
+		<thead>
+			<tr align="center">
+				<th>STT</th>
+				<th>Mã Lớp</th>
+				<th>Tên Lớp</th>
+				<th>Chức Năng</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% classes.forEach(function(lop,index) { %>
+			<tr align="center">
+				<td><%- index+1 %></td>
+				<td><%- lop.ma_lop %></td>
+				<td><a href="admin/class/<%- lop.ten_lop %>"><%- lop.ten_lop %></a></td>
+				<td>
+					<a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal<%- lop.id %>"
+						class="btn btn-warning text-light">
+						Sửa
+					</a>
+
+					<a class="btn btn-danger text-light" data-toggle="modal" data-target="#Modal<%- lop.id %>">Xóa</a>
+				</td>
+			</tr>
+			<div class="modal fade" id="Modal<%- lop.id %>" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Xóa Lớp</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Xóa Lớp <%- lop.ten_lop %>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
+							<a href="admin/class/delete/<%- lop.id %>" class="btn btn-primary">Xóa</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="exampleModal<%- lop.id %>" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Chỉnh Sửa Lớp</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class="p-2" action="/admin/class/edit" method="POST">
+							<div class="modal-body">
+								<div class="form-group">
+									<label class="font-weight-bold">MÃ LỚP</label>
+									<input type="text" class="form-control" name="ma_lop" value="<%- lop.ma_lop %>" />
+								</div>
+								<div class="form-group">
+									<label class="font-weight-bold">TÊN LỚP</label>
+									<input type="text" class="form-control" name="tenlop" value="<%- lop.ten_lop %>" />
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" value="<%- lop.id %>" class="btn btn-success w-25"
+									name="edit">Lưu</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<% }); %>
+		</tbody>
+	</table>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Thêm Lớp</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form class="p-2" method="post" action="/admin/class/add">
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="font-weight-bold">Mã Lớp</label>
+						<input type="text" class="form-control" name="ma_lop" value="" />
+					</div>
+					<div class="form-group">
+						<label class="font-weight-bold">Tên Lớp</label>
+						<input type="text" class="form-control" name="ten_lop" value="" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success w-25" name="add">Thêm</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
